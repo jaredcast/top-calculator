@@ -1,0 +1,14 @@
+.main {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+.calculator {
+    background-color:rgb(190, 190, 190);
+    display:flex;
+    justify-content: center;
+    /* margin-top:200px; */
+    width:800px;
+    min-height:600px;
+}
