@@ -2,6 +2,7 @@
     display:flex;
     align-items: center;
     justify-content: center;
+    font-family: Arial;
     /* flex-direction:column; */
 }
 .calculator {
@@ -10,7 +11,7 @@
     flex-direction: column; */
     /* justify-content: center; */
     width:400px;
-    min-height:700px;
+    min-height:470px;
     padding: 10px;
     border-style: solid;
 }
@@ -26,6 +27,7 @@
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    white-space: nowrap;
 }
 
 .buttons {
@@ -35,7 +37,7 @@
 }
 
 .calcBtn {
-    background-color: rgb(175, 190, 175);
+    background-color: rgb(229, 230, 218);
     border: 2px solid;
     padding: 10px;
     font-size: 20px;
@@ -44,3 +46,18 @@
 .clearBtn, .delBtn{
     grid-column: span 2;
 }
+
+.prev {
+    font-size: 20px;
+    margin-top: 0px;
+}
+.cur{
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: right;
+}
+/* .screen p {
+    color: blue;
+}
+ */
