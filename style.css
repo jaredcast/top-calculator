@@ -36,7 +36,10 @@
     grid-gap: 15px 10px;
 }
 
-.calcBtn {
+button:hover {
+    background-color: white;
+}
+.calcBtn, .opBtn, .eqBtn {
     background-color: rgb(229, 230, 218);
     border: 2px solid;
     padding: 10px;
@@ -57,6 +60,8 @@
     margin-bottom: 0px;
     text-align: right;
 }
+
+
 /* .screen p {
     color: blue;
 }
