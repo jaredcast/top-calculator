@@ -39,7 +39,7 @@
 button:hover {
     background-color: white;
 }
-.calcBtn, .opBtn, .eqBtn {
+.calcBtn, .opBtn, .eqBtn, .clearBtn, .delBtn {
     background-color: rgb(229, 230, 218);
     border: 2px solid;
     padding: 10px;
