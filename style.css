@@ -50,15 +50,21 @@ button:hover {
     grid-column: span 2;
 }
 
+.screen {
+    text-align: right;
+}
+
 .prev {
     font-size: 20px;
     margin-top: 0px;
+    min-height: 30px;
+    
 }
 .cur{
     font-size: 40px;
     margin-top: 0px;
     margin-bottom: 0px;
-    text-align: right;
+    /* text-align: right; */
 }
 
 

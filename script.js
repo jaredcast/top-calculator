@@ -32,8 +32,8 @@ let appendNum = (num) => {
 
 let calcOperate = (val1, o, val2) => {
     //console.log(`${val1} ${o} ${val2}`);
-    val1 = Number(val1);
-    val2 = Number(val2);
+    val1 = roundNum(Number(val1));
+    val2 = roundNum(Number(val2));
     switch (o) {
         case '+':
             return val1 + val2;
@@ -46,9 +46,14 @@ let calcOperate = (val1, o, val2) => {
                 alert("Cannot divide by 0!");
                 return "NaN";
             }
-            return val1 / val2;
+            return roundNum(val1 / val2);
     }
 
+}
+
+let roundNum = (num) => {
+    return Math.round(num * 1000) / 1000
+      
 }
 
 numButtons.forEach((button) => {
@@ -75,7 +80,7 @@ opButtons.forEach((button) => {
         else {
             oper = button.value;
             cur.textContent += oper;
-            prevText.textContent += oper;
+            prevText.textContent = num1 + oper;
         }
           
     })
