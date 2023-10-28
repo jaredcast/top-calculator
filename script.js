@@ -36,11 +36,11 @@ let calcOperate = (val1, o, val2) => {
     val2 = roundNum(Number(val2));
     switch (o) {
         case '+':
-            return val1 + val2;
+            return roundNum(val1 + val2);
         case '-':
-            return val1 - val2;
+            return roundNum(val1 - val2);
         case '*':
-            return val1 * val2;
+            return roundNum(val1 * val2);
         case '/':
             if (val2 == 0) {
                 alert("Cannot divide by 0!");
@@ -52,7 +52,7 @@ let calcOperate = (val1, o, val2) => {
 }
 
 let roundNum = (num) => {
-    return Math.round(num * 1000) / 1000
+    return Math.round(num * 100000000) / 100000000
       
 }
 
@@ -95,18 +95,20 @@ eqBtn.addEventListener('click', () => {
     oper, num2 = "";
 })
 
-// delBtn.addEventListener('click', () => {
-//     cur.textContent = cur.textContent.slice(0,-1);
-//     if (num2 != "") {
-//         num2 = num2.slice(0,-1);
-//     }
-//     else if (oper != "") {
-//         oper = oper.slice(0,-1);
-//     }
-//     else if (num1 != "") {
-//         num1 = num1.slice(0,-1);
-//     }
-// })
+delBtn.addEventListener('click', () => {
+    prevText.textContent = cur.textContent;
+    cur.textContent = cur.textContent.slice(0,-1);
+    prevText.textContent = prevText.textContent.slice(0,-1)
+    if (num2 != "") {
+        num2 = num2.slice(0,-1);
+    }
+    else if (oper != "") {
+        oper = oper.slice(0,-1);
+    }
+    else if (num1 != "") {
+        num1 = num1.slice(0,-1);
+    }
+})
 clearBtn.addEventListener('click', () => {
     cur.textContent = "";
     prevText.textContent = "";
