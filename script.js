@@ -30,6 +30,23 @@ let appendNum = (num) => {
     //console.log(`Num1  ${num1} and num2 ${num2}`);
 }
 
+let appendOp = (op) => {
+    if (oper != "" && num1 != "" && num2 != "") {
+        oper = op;
+        num1 = calcOperate(num1, oper, num2);
+        prevText.textContent += oper;
+        cur.textContent = num1 + oper;
+        num2 = "";
+    }
+    // If this is the first operator being used
+    else {
+        oper = op;
+        cur.textContent += oper;
+        prevText.textContent = num1 + oper;
+    }
+      
+}
+
 let calcOperate = (val1, o, val2) => {
     //console.log(`${val1} ${o} ${val2}`);
     val1 = roundNum(Number(val1));
@@ -69,20 +86,20 @@ numButtons.forEach((button) => {
 opButtons.forEach((button) => {
     button.addEventListener('click', () => {
         //If this is a second operator without it being reset  && num1 != "" && num2 != ""
-        if (oper != "" && num1 != "" && num2 != "") {
-            oper = button.value;
-            num1 = calcOperate(num1, oper, num2);
-            prevText.textContent += oper;
-            cur.textContent = num1 + oper;
-            num2 = "";
-        }
-        // If this is the first operator being used
-        else {
-            oper = button.value;
-            cur.textContent += oper;
-            prevText.textContent = num1 + oper;
-        }
-          
+        // if (oper != "" && num1 != "" && num2 != "") {
+        //     oper = button.value;
+        //     num1 = calcOperate(num1, oper, num2);
+        //     prevText.textContent += oper;
+        //     cur.textContent = num1 + oper;
+        //     num2 = "";
+        // }
+        // // If this is the first operator being used
+        // else {
+        //     oper = button.value;
+        //     cur.textContent += oper;
+        //     prevText.textContent = num1 + oper;
+        // }
+        appendOp(button.value);
     })
 });
 
@@ -91,8 +108,10 @@ eqBtn.addEventListener('click', () => {
     ans = calcOperate(num1, oper, num2)
     console.log(ans);
     cur.textContent = ans;
-    num1 = ans;
-    oper, num2 = "";
+    num1 = ans.toString();
+    oper= "";
+    num2 = "";
+    console.log(`Num1 ${num1} Oper ${oper} Num2 ${num2}`);
 })
 
 delBtn.addEventListener('click', () => {
@@ -101,13 +120,20 @@ delBtn.addEventListener('click', () => {
     prevText.textContent = prevText.textContent.slice(0,-1)
     if (num2 != "") {
         num2 = num2.slice(0,-1);
+        console.log(num2);
+        console.log("Del num 2");
     }
     else if (oper != "") {
         oper = oper.slice(0,-1);
+        console.log(oper);
+        console.log("Del op");
     }
     else if (num1 != "") {
         num1 = num1.slice(0,-1);
+        console.log(num1);
+        console.log("Del num 1");
     }
+    console.log({num1,oper,num2});
 })
 clearBtn.addEventListener('click', () => {
     cur.textContent = "";
@@ -116,3 +142,31 @@ clearBtn.addEventListener('click', () => {
     num2 = '';
     oper = "";
 })
+
+window.addEventListener("keydown", (e) => {
+    switch(e.key) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+            appendNum(e.key);
+            break;
+        case '+':
+        case '-':
+        case '/':
+        case '*':
+            appendOp(e.key);
+            break;
+        case '=':
+        case 'Enter':
+            eqBtn.click();
+            break;
+    }
+});
