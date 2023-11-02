@@ -12,7 +12,10 @@ let num1 = '';
 let num2 = '';
 let oper = "";
 
+let allowPeriod = true;
+
 let appendNum = (num) => {
+    if (num === '.') {disablePer();}
     if (cur.textContent === '' || cur.textContent === '0' || cur.textContent === 'NaN') { //Empty, replace vals
         cur.textContent = num;
         prevText.textContent += num;
@@ -24,19 +27,19 @@ let appendNum = (num) => {
 
     if (oper == "") {
         num1 += num;
-        if (num1.includes(".")) {disablePer();}
+        // if (num1.includes(".")) {disablePer();}
     }
     else {
         num2 += num;
-        if (num2.includes(".")) {disablePer();}
+        // if (num2.includes(".")) {disablePer();}
     }
 
 
-    //console.log(`Num1  ${num1} and num2 ${num2}`);
+    console.log(`Num1 ${num1} Oper ${oper} Num2 ${num2}`);
 }
 
 let appendOp = (op) => {
-    enablePer();
+    enablePer(); //Enable the period key every time a new number is dealt with after appending an operator
     if (oper != "" && num1 != "" && num2 != "") {
         num1 = calcOperate(num1, oper, num2);
         oper = op;
@@ -85,17 +88,15 @@ let roundNum = (num) => {
 
 let disablePer = () => {
     perButton.disabled = true;
+    allowPeriod = false;
 }
 let enablePer = () => {
     perButton.disabled = false;
+    allowPeriod = true;
 }
 
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        //console.log(button.dataset.id);
-        // cur.textContent = button.value;
-        //appendNum(button.value);
-        //console.log(button.value);
         appendNum(button.value);
     })}
 );
@@ -161,7 +162,12 @@ clearBtn.addEventListener('click', () => {
 })
 
 window.addEventListener("keydown", (e) => {
-    if (e.key >= 0 && e.key <= 9) { appendNum(e.key);}
+    if (e.key === '.' && allowPeriod === true) {
+        appendNum(e.key);
+        allowPeriod = false;
+        console.log("No more pressing . for current num");
+    }
+    if (e.key >= 0 && e.key <= 9) {appendNum(e.key);}
     if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {appendOp(e.key);}
     if (e.key === "=" || e.key === 'Enter') {eqBtn.click();}
     if (e.key === "Backspace") {delBtn.click();}
