@@ -32,17 +32,20 @@ let appendNum = (num) => {
 
 let appendOp = (op) => {
     if (oper != "" && num1 != "" && num2 != "") {
-        oper = op;
         num1 = calcOperate(num1, oper, num2);
+        oper = op;
         prevText.textContent += oper;
         cur.textContent = num1 + oper;
         num2 = "";
+        console.log("New op used");
+        
     }
     // If this is the first operator being used
     else {
         oper = op;
         cur.textContent += oper;
         prevText.textContent = num1 + oper;
+        console.log("First uses");
     }
       
 }
@@ -144,29 +147,33 @@ clearBtn.addEventListener('click', () => {
 })
 
 window.addEventListener("keydown", (e) => {
-    switch(e.key) {
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-        case '0':
-            appendNum(e.key);
-            break;
-        case '+':
-        case '-':
-        case '/':
-        case '*':
-            appendOp(e.key);
-            break;
-        case '=':
-        case 'Enter':
-            eqBtn.click();
-            break;
-    }
+    // switch(e.key) {
+    //     case '0':
+    //     case '1':
+    //     case '2':
+    //     case '3':
+    //     case '4':
+    //     case '5':
+    //     case '6':
+    //     case '7':
+    //     case '8':
+    //     case '9':
+    //     case '0':
+    //         appendNum(e.key);
+    //         break;
+    //     case '+':
+    //     case '-':
+    //     case '/':
+    //     case '*':
+    //         appendOp(e.key);
+    //         break;
+    //     case '=':
+    //     case 'Enter':
+    //         eqBtn.click();
+    //         break;
+    // }
+    if (e.key >= 0 && e.key <= 9) { appendNum(e.key);}
+    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {appendOp(e.key);}
+    if (e.key === "=" || e.key === 'Enter') {eqBtn.click();}
+    if (e.key === "Backspace") {delBtn.click();}
 });
