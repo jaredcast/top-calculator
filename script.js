@@ -6,31 +6,37 @@ const cur = document.querySelector('.cur');
 const prevText = document.querySelector('.prev');
 const clearBtn = document.querySelector('.clearBtn');
 const delBtn = document.querySelector('.delBtn')
+const perButton = document.getElementById('per');
 
 let num1 = '';
 let num2 = '';
 let oper = "";
 
 let appendNum = (num) => {
-    if (cur.textContent === '' || cur.textContent === '0' || cur.textContent === 'NaN') {
+    if (cur.textContent === '' || cur.textContent === '0' || cur.textContent === 'NaN') { //Empty, replace vals
         cur.textContent = num;
         prevText.textContent += num;
     }
-    else {
+    else { //Append normally
         cur.textContent += num;
         prevText.textContent += num;
     }
 
     if (oper == "") {
         num1 += num;
+        if (num1.includes(".")) {disablePer();}
     }
     else {
         num2 += num;
+        if (num2.includes(".")) {disablePer();}
     }
+
+
     //console.log(`Num1  ${num1} and num2 ${num2}`);
 }
 
 let appendOp = (op) => {
+    enablePer();
     if (oper != "" && num1 != "" && num2 != "") {
         num1 = calcOperate(num1, oper, num2);
         oper = op;
@@ -38,13 +44,14 @@ let appendOp = (op) => {
         cur.textContent = num1 + oper;
         num2 = "";
         console.log("New op used");
-        
+
     }
     // If this is the first operator being used
     else {
         oper = op;
         cur.textContent += oper;
         prevText.textContent = num1 + oper;
+        
         console.log("First uses");
     }
       
@@ -64,6 +71,7 @@ let calcOperate = (val1, o, val2) => {
         case '/':
             if (val2 == 0) {
                 alert("Cannot divide by 0!");
+                prevText.textContent = "";
                 return "NaN";
             }
             return roundNum(val1 / val2);
@@ -72,8 +80,14 @@ let calcOperate = (val1, o, val2) => {
 }
 
 let roundNum = (num) => {
-    return Math.round(num * 100000000) / 100000000
-      
+    return Math.round(num * 100000000) / 100000000;
+}
+
+let disablePer = () => {
+    perButton.disabled = true;
+}
+let enablePer = () => {
+    perButton.disabled = false;
 }
 
 numButtons.forEach((button) => {
@@ -147,31 +161,6 @@ clearBtn.addEventListener('click', () => {
 })
 
 window.addEventListener("keydown", (e) => {
-    // switch(e.key) {
-    //     case '0':
-    //     case '1':
-    //     case '2':
-    //     case '3':
-    //     case '4':
-    //     case '5':
-    //     case '6':
-    //     case '7':
-    //     case '8':
-    //     case '9':
-    //     case '0':
-    //         appendNum(e.key);
-    //         break;
-    //     case '+':
-    //     case '-':
-    //     case '/':
-    //     case '*':
-    //         appendOp(e.key);
-    //         break;
-    //     case '=':
-    //     case 'Enter':
-    //         eqBtn.click();
-    //         break;
-    // }
     if (e.key >= 0 && e.key <= 9) { appendNum(e.key);}
     if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {appendOp(e.key);}
     if (e.key === "=" || e.key === 'Enter') {eqBtn.click();}
